@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 direccion;
     private CinemachineVirtualCamera cm;
     private Vector2 direccionMovimiento;
+    private bool bloqueado;
 
     [Header("Estadisticas")]
     public float velocidadDeMovimento = 10;
@@ -35,6 +36,10 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         cm = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>();
+    }
+    public void SetBloqueadoTrue()
+    {
+        bloqueado = true;
     }
 
     void Start()
@@ -70,8 +75,8 @@ public class PlayerController : MonoBehaviour
     public void FinalizarAtaque()
     {
         anim.SetBool("atacar", false);
+        bloqueado = false;
         estaAtacando = false;
-
     }
 
     private Vector2 DireccionAtaque(Vector2 direccionMovimiento, Vector2 direccion)
@@ -186,8 +191,8 @@ public class PlayerController : MonoBehaviour
            
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && !haciendoDash)
-        {
+        if (Input.GetKeyDown(KeyCode.X) && !haciendoDash && !puedeDash)
+            {
            if(xRaw!=0 || yRaw != 0)
             {
                 Dash(xRaw, yRaw);
@@ -253,7 +258,7 @@ public class PlayerController : MonoBehaviour
     //private void Caminar(Vector2 direccion)
     private void Caminar()
     {
-        if(puedeMover && !haciendoDash)
+        if(puedeMover && !haciendoDash && !estaAtacando)
         {
         rb.velocity = new Vector2(direccion.x * velocidadDeMovimento, rb.velocity.y);
 
@@ -287,6 +292,13 @@ public class PlayerController : MonoBehaviour
                 }
                 anim.SetBool("caminar", false);
             }
+        }else
+        {
+            if (bloqueado)
+            {
+                FinalizarAtaque();
+            }
+
         }
 
     }
