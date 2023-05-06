@@ -103,10 +103,10 @@ public class Skeleton : MonoBehaviour
         direccionFlecha = direccionFlecha.normalized;
 
         GameObject flechaGO = Instantiate(flecha, transform.position, Quaternion.identity);
-      //  flechaGO.transform.GetComponent<Flecha>().direccionFlecha = direccionFlecha;
-     //   flechaGO.transform.GetComponent<Flecha>().esqueleto = this.gameObject;
+        flechaGO.transform.GetComponent<Flecha>().direccionFlecha = direccionFlecha;
+        flechaGO.transform.GetComponent<Flecha>().esqueleto = this.gameObject;
 
-        //flechaGO.transform.GetComponent<Rigidbody2D>().velocity = direccionFlecha * fuerzaLanzamiento;
+       flechaGO.transform.GetComponent<Rigidbody2D>().velocity = direccionFlecha * fuerzaLanzamiento;
         lanzandoFlecha = false;
     }
 
