@@ -566,6 +566,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &553802314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553802316}
+  - component: {fileID: 553802317}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &553802316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553802314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &553802317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553802314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343beee9eb89f3b45b0c17443f7e9be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidasUI: {fileID: 181810139}
 --- !u!1 &561450739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1305,7 @@ GameObject:
   - component: {fileID: 977456779}
   - component: {fileID: 977456778}
   - component: {fileID: 977456782}
+  - component: {fileID: 977456783}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1490,6 +1536,20 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &977456783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977456777}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59836da6b58b1144a9493c7045d744d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curShader: {fileID: 4800000, guid: b9e4034028617b7498e907aa5638a54c, type: 3}
+  grayScaleAmount: 1
 --- !u!1 &994675272
 GameObject:
   m_ObjectHideFlags: 0
@@ -7787,6 +7847,10 @@ PrefabInstance:
     - target: {fileID: 2593214435944248372, guid: a5dd22218227dad4d9ff5317c908c594, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593214435944248373, guid: a5dd22218227dad4d9ff5317c908c594, type: 3}
+      propertyPath: tiempoInmortalidad
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2593214435944248376, guid: a5dd22218227dad4d9ff5317c908c594, type: 3}
       propertyPath: m_Name

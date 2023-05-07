@@ -85,7 +85,7 @@ public class Bat : MonoBehaviour
             }
             else
             {
-                //player.RecibirDano((transform.position - player.transform.position).normalized);
+                player.RecibirDano((transform.position - player.transform.position).normalized);
             }
         }
     }

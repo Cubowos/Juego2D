@@ -23,7 +23,7 @@ public class Flecha : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-           // collision.GetComponent<PlayerController>().RecibirDano(-(collision.transform.position - esqueleto.transform.position).normalized);
+           collision.GetComponent<PlayerController>().RecibirDano(-(collision.transform.position - esqueleto.transform.position).normalized);
             Destroy(this.gameObject);
         }
     }
