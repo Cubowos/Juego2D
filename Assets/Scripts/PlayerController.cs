@@ -5,6 +5,8 @@ using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
+    private int direccionX;
+
     private Rigidbody2D rb;
     private Animator anim;
     public Vector2 direccion;
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public bool estaAtacando;
     public bool esInmortal;
     public bool aplicarFuerza;
+    public bool terminandoMapa;
 
 
     private void Awake()
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour
         if (vidas > 0)
             return;
 
-       // GameManager.instance.GameOver();
+        GameManager.instance.GameOver();
         this.enabled = false;
     }
 
@@ -76,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!esInmortal)
         {
-           // StartCoroutine(Inmortalidad());
+            StartCoroutine(Inmortalidad());
             vidas--;
             gc.enabled = true;
             float velocidadAuxiliar = velocidadDeMovimiento;
@@ -99,30 +102,13 @@ public class PlayerController : MonoBehaviour
                
             }
 
-            //ActualizarVidasUI(1);
+            
 
             velocidadDeMovimiento = velocidadAuxiliar;
             Morir();
         }
     }
-  /*  public void ActualizarVidasUI(int vidasADescontar)
-    {
-        int vidasDescontadas = vidasADescontar;
-
-        for (int i = GameManager.instance.vidasUI.transform.childCount - 1; i >= 0; i--)
-        {
-            if (GameManager.instance.vidasUI.transform.GetChild(i).gameObject.activeInHierarchy && vidasDescontadas != 0)
-            {
-                GameManager.instance.vidasUI.transform.GetChild(i).gameObject.SetActive(false);
-                vidasDescontadas--;
-            }
-            else
-            {
-                if (vidasDescontadas == 0)
-                    break;
-            }
-        }
-    }*/
+ 
     private void FixedUpdate()
     {
         if (aplicarFuerza)
@@ -155,6 +141,25 @@ public class PlayerController : MonoBehaviour
 
         esInmortal = false;
     }
+    public void MovimientoFinalMapa(int direccionX)
+    {
+        terminandoMapa = true;
+        this.direccionX = direccionX;
+        anim.SetBool("caminar", true);
+        if (this.direccionX < 0 && transform.localScale.x > 0)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+        }
+        else if (this.direccionX > 0 && transform.localScale.x < 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+
+    }
+
+
+
 
     void Start()
     {
@@ -164,13 +169,27 @@ public class PlayerController : MonoBehaviour
     // Update is called one per frame
     void Update()
     {
-        Movimiento();
-        Agarres();
+        if (!terminandoMapa)
+        {
+            Movimiento();
+
+        }
+        else
+        {
+            rb.velocity = (new Vector2(direccionX * velocidadDeMovimiento, rb.velocity.y));
+        }
+
+        /*   if (!esInmortal && ultimoEnemigo != null)
+        {
+            Physics2D.IgnoreCollision(ultimoEnemigo.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+               ultimoEnemigo = null;
+        }*/
+
     }
 
     private void Atacar(Vector2 direccion)
     {
-        if(Input.GetKeyDown(KeyCode.V))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             if (!estaAtacando && !haciendoDash)
             {
@@ -286,38 +305,35 @@ public class PlayerController : MonoBehaviour
         float xRaw = Input.GetAxisRaw("Horizontal");
         float yRaw = Input.GetAxisRaw("Vertical");
 
-        //Vector2 direccion = new Vector2(x, y);
+        
         direccion = new Vector2(x, y);
         Vector2 direccionRaw = new Vector2(xRaw, yRaw);
 
-        //Caminar(direccion);
+       
         Caminar();
-        Atacar(DireccionAtaque(direccionMovimiento,direccionRaw));
+        Atacar(DireccionAtaque(direccionMovimiento, direccionRaw));
 
         MejorarSalto();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (enSuelo)
             {
-            anim.SetBool("saltar", true);
-            Saltar();
+                anim.SetBool("saltar", true);
+                Saltar();
             }
-           
-        }
 
-        if (Input.GetKeyDown(KeyCode.X) && !haciendoDash && !puedeDash)
-            {
-           if(xRaw!=0 || yRaw != 0)
-            {
-                Dash(xRaw, yRaw);
-            }
         }
-        if(enSuelo && !tocadoPiso)
+      /*  if (Input.GetKeyDown(KeyCode.X) && !haciendoDash && !puedeDash)
+        {
+            if (xRaw != 0 || yRaw != 0)
+                Dash(xRaw, yRaw);
+        }
+        if (enSuelo && !tocadoPiso)*/
         {
             TocarPiso();
             tocadoPiso = true;
         }
-        if(!enSuelo && tocadoPiso)
+        if (!enSuelo && tocadoPiso)
         {
             tocadoPiso = false;
         }
@@ -329,15 +345,17 @@ public class PlayerController : MonoBehaviour
             velocidad = -1;
         if (!enSuelo)
         {
-            
+
             anim.SetFloat("velocidadVertical", velocidad);
         }
         else
         {
-            if(velocidad==-1)
-            FinalizarSalto();
+            if (velocidad == -1)
+                FinalizarSalto();
         }
     }
+
+
 
     public void FinalizarSalto()
     {
@@ -346,7 +364,6 @@ public class PlayerController : MonoBehaviour
     }
     private void MejorarSalto()
     {
-        // Si la velocidad es menor que cero estoy cayendo
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (2.5f - 1) * Time.deltaTime;
@@ -365,7 +382,7 @@ public class PlayerController : MonoBehaviour
     private void Saltar()
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        //rb.velocity += direccion * fuerzaDeSalto;
+        
         rb.velocity += Vector2.up * fuerzaDeSalto;
     }
 

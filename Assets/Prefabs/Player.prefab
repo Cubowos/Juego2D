@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direccion: {x: 0, y: 0}
   velocidadDeMovimiento: 10
-  fuerzaDeSalto: 14
+  fuerzaDeSalto: 8
   velocidadDash: 20
   vidas: 3
   tiempoInmortalidad: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   estaAtacando: 0
   esInmortal: 0
   aplicarFuerza: 0
+  terminandoMapa: 0
 --- !u!95 &2593214435944248370
 Animator:
   serializedVersion: 4
