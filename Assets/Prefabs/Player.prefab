@@ -139,9 +139,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direccion: {x: 0, y: 0}
-  velocidadDeMovimento: 10
+  velocidadDeMovimiento: 10
   fuerzaDeSalto: 14
   velocidadDash: 20
+  vidas: 3
+  tiempoInmortalidad: 0
   layerPiso:
     serializedVersion: 2
     m_Bits: 64
@@ -154,6 +156,8 @@ MonoBehaviour:
   tocadoPiso: 0
   haciendoShake: 0
   estaAtacando: 0
+  esInmortal: 0
+  aplicarFuerza: 0
 --- !u!95 &2593214435944248370
 Animator:
   serializedVersion: 4
@@ -273,9 +277,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.040000085, y: 0.06}
+  m_Offset: {x: 0.040000044, y: 0.26041195}
   serializedVersion: 2
-  m_Radius: 1.0335438
+  m_Radius: 1.2339559
 --- !u!114 &2593214436936661792
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 [ExecuteInEditMode]
 public class GrayCamera : MonoBehaviour

@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class AreaAtaque : MonoBehaviour
 {
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemigo"))
         {
-            Debug.Log("Aplica Danio enemigo");
+            if (collision.name == "Bat")
+            {
+                collision.GetComponent<Bat>().RecibirDano();
+            }
+            else if (collision.name == "Skeleton")
+            {
+                collision.GetComponent<Skeleton>().RecibirDano();
+            }
+            
         }
+       
     }
 }

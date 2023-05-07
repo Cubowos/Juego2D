@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
     private void Atacar(Vector2 direccion)
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKeyDown(KeyCode.V))
         {
             if (!estaAtacando && !haciendoDash)
             {
